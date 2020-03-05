@@ -138,6 +138,8 @@ def HandleKeyAFTERINTRelease (e) :
         except :
             tkMessageBox.showerror("Error", "Please enter a interger value")
             afterbox.delete('1.0', tkin.END)
+    else :
+        SearchFunction()
 
 
 def HandleKeyBEFOREINTRelease (e) :
@@ -150,6 +152,8 @@ def HandleKeyBEFOREINTRelease (e) :
         except :
            tkMessageBox.showerror("Error", "Please enter a interger value")
            beforebox.delete('1.0', tkin.END)
+    else :
+        SearchFunction()
     
 
 # Callback function to call a web URL
