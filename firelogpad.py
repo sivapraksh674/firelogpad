@@ -83,7 +83,7 @@ def SelectFile():
 # Search function to filter the logs based on selection 
 
 def SearchFunction():
-     global filename,logtype,cataegory,casecheck,negationcheck
+     global filename,logtype,cataegory,casecheck,negationcheck,afterbox,beforebox
 
      # Validation to check if a file is selected or not 
      if len(filename) == 0 :
@@ -107,9 +107,12 @@ def SearchFunction():
          else :
              searchquery = "awk '{ if( $5 == \""+logtype.get()+"\" ) print;}' "+ filename 
      options=""
+
      if searchbox.get("1.0",'end-1c') :
          options+= " -i " if casecheck.get() else ""
          options+= " -v " if negationcheck.get() else ""
+         options+= " -A "+afterbox.get("1.0",'end-1c')+" " if afterbox.get("1.0",'end-1c') else ""
+         options+= " -B "+beforebox.get("1.0",'end-1c')+" " if beforebox.get("1.0",'end-1c') else ""
          searchquery = searchquery+" | grep "+options+" \""+ searchbox.get("1.0",'end-1c') + "\" "
      print ( "\n" + searchquery )  
     
@@ -121,6 +124,33 @@ def SearchFunction():
 def HandleKeyRelease (e) :
     print ( "Keypressed" , e.char )
     SearchFunction()
+
+
+# Event Call Back for AFTER OR BEFORE INT BOX Key Down Events
+
+def HandleKeyAFTERINTRelease (e) :
+    if afterbox.get("1.0",'end-1c') :
+        try : 
+            i=int(afterbox.get("1.0",'end-1c'))
+            print ( i )
+            print ( "Keypressed", e.char )
+            SearchFunction()
+        except :
+            tkMessageBox.showerror("Error", "Please enter a interger value")
+            afterbox.delete('1.0', tkin.END)
+
+
+def HandleKeyBEFOREINTRelease (e) :
+    if beforebox.get("1.0",'end-1c') :
+        try : 
+           i=int(beforebox.get("1.0",'end-1c'))
+           print ( i )
+           print( "Keypressed" , e.char )
+           SearchFunction()
+        except :
+           tkMessageBox.showerror("Error", "Please enter a interger value")
+           beforebox.delete('1.0', tkin.END)
+    
 
 # Callback function to call a web URL
 
@@ -161,6 +191,34 @@ searchbox=tkin.Text(searchframe, height=2, width=50, borderwidth=2, relief=tkin.
 searchbox.configure(highlightbackground=bgcolor)
 searchbox.bind('<KeyRelease>',HandleKeyRelease)
 searchbox.pack(side=tkin.LEFT)
+
+# Before box label creation and packing to the view area
+
+beforeboxlabel = tkin.Label(searchframe,justify = tkin.LEFT)
+beforeboxlabel.config(text = "BEFORE ",bg=bgcolor,fg=fgcolor)
+beforeboxlabel.pack(side=tkin.LEFT)
+ 
+# Before box text area creation and packing to the view area
+
+beforebox=tkin.Text(searchframe, height=1, width=3, borderwidth=2, relief=tkin.GROOVE)
+beforebox.configure(highlightbackground=bgcolor)
+beforebox.bind('<KeyRelease>',HandleKeyBEFOREINTRelease)
+beforebox.pack(side=tkin.LEFT)
+
+# After box label creation and packing to the view area
+
+afterboxlabel = tkin.Label(searchframe,justify = tkin.LEFT)
+afterboxlabel.config(text = "AFTER ",bg=bgcolor,fg=fgcolor)
+afterboxlabel.pack(side=tkin.LEFT)
+ 
+# After box text area creation and packing to the view area
+
+afterbox=tkin.Text(searchframe, height=1, width=3, borderwidth=2, relief=tkin.GROOVE)
+afterbox.configure(highlightbackground=bgcolor)
+afterbox.bind('<KeyRelease>',HandleKeyAFTERINTRelease)
+afterbox.pack(side=tkin.LEFT)
+
+
 
 
 # Class name category selection Check Box creation
