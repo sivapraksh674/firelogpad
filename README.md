@@ -3,7 +3,7 @@ Fire OS Log Analysis tool on python for Amazon Fire TV Log Analysis
 
 Features :
 
-* Have search feature in grep options in GUI like :
+* Have search feature in grep options in GUI like : :mag:
      </br>&ensp;&ensp;&ensp;:one: Ingore case ( Upper or Lower case )
      </br>&ensp;&ensp;&ensp;:two: Negating the search ( The lines without the search keyword )
 
