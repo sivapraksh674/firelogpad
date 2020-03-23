@@ -1,0 +1,3 @@
+([('firelogpad',
+   '/Users/ssivpr/Documents/projects/firelogpad/dist/firelogpad',
+   'EXECUTABLE')],)

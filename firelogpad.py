@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ###################################################################
 # Author    :   Sivaprakash.B                                     #
 # Email     :   ssivpr@amazon.com                                 #
@@ -13,11 +14,13 @@ try:
     import tkFileDialog            # For providing dialog box option for selecting files
     import tkMessageBox            # For displaying message box alerts
     import webbrowser              # For converting text into clickable links
+    import ttk
 except:
     import tkinter as tkin         # This is for python3
-    tkFileDialog=tkin.filedialog   # For providing dialog box option for selecting files
-    tkMessageBox=tkin.messagebox   # For displaying message box alerts
+    import tkinter.filedialog as tkFileDialog  # For providing dialog box option for selecting files
+    import tkinter.messagebox as tkMessageBox  # For displaying message box alerts
     import webbrowser              # For converting text into clickable links
+    import tkinter.ttk as ttk
 
 import subprocess                  # For validating the output on the search query
 
@@ -126,7 +129,7 @@ def HandleKeyRelease (e) :
     SearchFunction()
 
 
-# Event Call Back for AFTER OR BEFORE INT BOX Key Down Events
+# Event Call Back for AFTER INT BOX Key Down Events
 
 def HandleKeyAFTERINTRelease (e) :
     if afterbox.get("1.0",'end-1c') :
@@ -141,6 +144,7 @@ def HandleKeyAFTERINTRelease (e) :
     else :
         SearchFunction()
 
+# Event Call Back for BEFORE INT BOX Key Down Events
 
 def HandleKeyBEFOREINTRelease (e) :
     if beforebox.get("1.0",'end-1c') :
@@ -175,7 +179,8 @@ filepatharea.pack(fill="none", expand=tkin.TRUE)
 
 # Select File action button creation and packing to the view area
 
-selectfilebutton = tkin.Button(topframe, text='SELECT FILE',command=SelectFile)
+
+selectfilebutton = ttk.Button(topframe, text="SELECT FILE", command=SelectFile)
 selectfilebutton.pack(side=tkin.BOTTOM)
 
 # ( Deprecated ) Get Logs action button creation and packing to the view area
